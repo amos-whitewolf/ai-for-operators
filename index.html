@@ -44,6 +44,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease;
+    overflow-y: auto;
   }
   .slide.active {
     opacity: 1;
@@ -134,16 +135,16 @@
   /* Cards */
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
   }
 
   .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 1.5rem;
     transition: transform 0.3s ease, border-color 0.3s ease;
   }
   .card:hover {
@@ -151,16 +152,16 @@
     border-color: rgba(0,255,136,0.3);
   }
   .card .emoji {
-    font-size: 2rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
     display: block;
   }
   .card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
   }
   .card p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: rgba(240,239,233,0.6);
   }
 
@@ -204,21 +205,21 @@
   .flow {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
   }
   .flow-step {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 12px;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
     font-weight: 600;
   }
   .flow-arrow {
     color: var(--accent);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
   }
 
@@ -226,7 +227,7 @@
   .stats-row {
     display: flex;
     gap: 4rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     flex-wrap: wrap;
   }
   .stat {
@@ -251,10 +252,10 @@
   /* Bullet lists */
   .clean-list {
     list-style: none;
-    margin-top: 1.2rem;
+    margin-top: 1rem;
   }
   .clean-list li {
-    padding: 0.6rem 0;
+    padding: 0.5rem 0;
     padding-left: 1.5rem;
     position: relative;
     border-bottom: 1px solid rgba(255,255,255,0.04);
@@ -276,12 +277,29 @@
   .quote {
     border-left: 3px solid var(--accent);
     padding-left: 2rem;
-    margin: 2rem 0;
-    font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+    margin: 1.5rem 0;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
     font-weight: 300;
     font-style: italic;
     color: rgba(240,239,233,0.7);
     line-height: 1.5;
+  }
+
+  /* Links */
+  a.asset-link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(0,255,136,0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+  a.asset-link:hover {
+    background: rgba(0,255,136,0.1);
   }
 
   /* Subtle grain overlay */
@@ -304,6 +322,40 @@
     font-size: 0.75rem;
     color: rgba(255,255,255,0.15);
     z-index: 100;
+  }
+
+  /* Numbered steps */
+  .step-list {
+    list-style: none;
+    margin-top: 1.2rem;
+    counter-reset: steps;
+  }
+  .step-list li {
+    counter-increment: steps;
+    padding: 1rem 0 1rem 3.5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(0,255,136,0.15);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .step-list li strong {
+    color: var(--fg);
+    font-weight: 700;
   }
 
   @media (max-width: 768px) {
@@ -337,7 +389,7 @@
     <ul class="clean-list" style="max-width: 700px;">
       <li>Legacy systems — can't just swap in new tools</li>
       <li>Approval chains — every change needs 5 sign-offs</li>
-      <li>Change management — retraining 200 people takes quarters</li>
+      <li>Change management — retraining 200 people takes years</li>
       <li>Politics — "that's not how we do it here"</li>
     </ul>
     <div class="quote">You don't have any of that. <span class="accent">That's your edge.</span></div>
@@ -347,27 +399,37 @@
   <div class="slide" data-slide="2">
     <span class="mono">Real Workflow</span>
     <h2>What this looks like<br>in practice</h2>
-    <p style="margin-bottom: 1rem;">I run a child safety startup called <strong>Halo</strong>. One person. Here are four things I did with AI that would've taken a team weeks.</p>
+    <p style="margin-bottom: 0.5rem;">I run a child safety startup called <strong>Halo</strong>. One person. Here's what I did with AI that would've taken a team weeks.</p>
     <div class="card-grid">
       <div class="card">
         <span class="emoji">🔍</span>
         <h3>Research & Intel</h3>
-        <p>Full competitive analysis</p>
+        <p>Full competitive teardowns</p>
       </div>
       <div class="card">
         <span class="emoji">🎬</span>
-        <h3>Ad Creatives</h3>
-        <p>Scripts → end cards → briefs</p>
+        <h3>Ad Creative Pipeline</h3>
+        <p>Scripts → assets → edit plan</p>
       </div>
       <div class="card">
         <span class="emoji">🌐</span>
         <h3>Landing Pages</h3>
-        <p>Design, copy, iteration</p>
+        <p>Copy, design, iteration</p>
       </div>
       <div class="card">
         <span class="emoji">🏫</span>
-        <h3>Database Build</h3>
+        <h3>Schools Database</h3>
         <p>Every school in Australia</p>
+      </div>
+      <div class="card">
+        <span class="emoji">🎮</span>
+        <h3>Gamification Design</h3>
+        <p>Kid engagement system</p>
+      </div>
+      <div class="card">
+        <span class="emoji">📡</span>
+        <h3>Reddit Scout</h3>
+        <p>Automated market listening</p>
       </div>
     </div>
   </div>
@@ -376,7 +438,7 @@
   <div class="slide" data-slide="3">
     <span class="mono">Case Study 01</span>
     <h2>Research &<br><span class="accent">Competitive Intel</span></h2>
-    <p style="max-width: 650px;">Needed to understand every competitor, their pricing, features, gaps — and find where my product wins.</p>
+    <p style="max-width: 650px;">Needed to understand every competitor — their pricing, features, gaps — and find where my product wins. Took what's working for them and used it to inform our stuff.</p>
     <div class="stats-row">
       <div class="stat">
         <span class="stat-value">30+</span>
@@ -387,42 +449,51 @@
         <span class="stat-label">Customer Profiles Built</span>
       </div>
       <div class="stat">
-        <span class="stat-value">Days</span>
-        <span class="stat-label">Not Weeks</span>
+        <span class="stat-value">Hours</span>
+        <span class="stat-label">Not Days</span>
       </div>
     </div>
-    <ul class="clean-list" style="max-width: 650px; margin-top: 2rem;">
-      <li>Full competitor teardown — features, pricing, positioning</li>
-      <li>Customer personas from real review data, not guesswork</li>
+    <ul class="clean-list" style="max-width: 650px; margin-top: 1.5rem;">
+      <li>Full competitor teardowns — features, pricing, positioning, ad strategies</li>
+      <li>Customer personas from real review data and market research</li>
       <li>Acquisition positioning doc with ranked buyer list</li>
       <li>Market sizing with sources and growth projections</li>
     </ul>
+    <div style="margin-top: 1rem;">
+      <a class="asset-link" href="https://ad-copy-review-sigma.vercel.app" target="_blank">→ Ad Copy Review</a>
+    </div>
   </div>
 
   <!-- SLIDE 5: Ad Creatives -->
   <div class="slide" data-slide="4">
     <span class="mono">Case Study 02</span>
-    <h2>Ad Creatives<br><span class="accent">Pipeline</span></h2>
-    <p style="max-width: 650px; margin-bottom: 1.5rem;">Wrote ad scripts, had AI review each one, then generated end cards and visual placement guides for the video editor.</p>
+    <h2>Ad Creative<br><span class="accent">Pipeline</span></h2>
+    <p style="max-width: 700px; margin-bottom: 1rem;">Built customer profiles first. Wrote scripts together. Got human review — me and a copywriter. Then AI generated every asset the video editor needed.</p>
     <div class="flow">
+      <div class="flow-step">👥 Customer Profiles</div>
+      <div class="flow-arrow">→</div>
       <div class="flow-step">📝 Write Scripts</div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step">🤖 AI Reviews Each</div>
+      <div class="flow-step">✍️ Human Review</div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step">🎨 Generate End Cards</div>
+      <div class="flow-step">🎨 Generate Assets</div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step">📍 Placement Guide</div>
+      <div class="flow-step">📋 Edit Plan</div>
       <div class="flow-arrow">→</div>
       <div class="flow-step">✂️ Hand to Editor</div>
     </div>
-    <div class="quote" style="margin-top: 2.5rem;">The AI knew which platforms each card fit — BeReal, TikTok, Instagram — and where to slot them into each video to maximise conversions.</div>
+    <p style="margin-top: 1.5rem; max-width: 700px;">The AI didn't just make end cards. It found real stats and made them visual. Pulled news headlines and built design elements. Created chat bubble mockups, split screens, infographics, step labels. Reviewed B-roll options. Built the full edit plan with second-by-second timecodes.</p>
+    <p style="margin-top: 0.8rem; max-width: 700px;">40+ production assets. One Vercel page the editor could just open and download everything.</p>
+    <div style="margin-top: 1rem;">
+      <a class="asset-link" href="https://ad-scripts.vercel.app/" target="_blank">→ Full Production Page</a>
+    </div>
   </div>
 
   <!-- SLIDE 6: Landing Pages -->
   <div class="slide" data-slide="5">
     <span class="mono">Case Study 03</span>
     <h2>Landing Pages &<br><span class="accent">Funnels</span></h2>
-    <p style="max-width: 650px;">Multiple landing page iterations — AI wrote the copy, built the pages, scored them against conversion frameworks, and rebuilt from scratch when needed.</p>
+    <p style="max-width: 650px;">AI wrote the majority of the copy. We iterated against conversion frameworks — Cialdini, direct response principles. I reviewed, got a copywriter to check it.</p>
     <div class="stats-row">
       <div class="stat">
         <span class="stat-value">4+</span>
@@ -430,24 +501,36 @@
       </div>
       <div class="stat">
         <span class="stat-value">7.3/10</span>
-        <span class="stat-label">Copy Score (Reviewed)</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">Specific</span>
-        <span class="stat-label">Before/After Rewrites</span>
+        <span class="stat-label">Copy Score</span>
       </div>
     </div>
-    <ul class="clean-list" style="max-width: 650px; margin-top: 2rem;">
-      <li>Copy reviewed against Cialdini's persuasion framework</li>
-      <li>Identified missing elements: social proof, FAQ, risk reversal</li>
-      <li>Pixel-perfect rebuild from Framer design to clean code</li>
-      <li>Brand voice extraction for future consistency</li>
+    <ul class="clean-list" style="max-width: 650px; margin-top: 1.5rem;">
+      <li>Copy reviewed against conversion frameworks</li>
+      <li>Identified gaps: social proof, FAQ, risk reversal</li>
+      <li>Pixel-perfect rebuilds from design to production code</li>
+      <li>Extracted brand voice into a reusable "skill" — all new copy runs through it</li>
     </ul>
+    <div class="quote">Once we had copy we liked and a copywriter validated it, we turned that voice into a rule set. Every new piece of copy stays in line automatically.</div>
   </div>
 
-  <!-- SLIDE 7: Schools Database -->
+  <!-- SLIDE 7: Gamification -->
   <div class="slide" data-slide="6">
     <span class="mono">Case Study 04</span>
+    <h2>Gamification<br><span class="accent">Design</span></h2>
+    <p style="max-width: 650px;">Needed to make the child-facing side of the app engaging — not just "safety software your parents installed." Designed a whole engagement system with AI.</p>
+    <ul class="clean-list" style="max-width: 650px; margin-top: 1.2rem;">
+      <li>Rebranded child reports as "Gaming Recap" — parents see "Safety Report"</li>
+      <li>Duolingo-style streaks and Xbox-style achievements</li>
+      <li>Stats: talk time, voice count, loudest moment, vibe check</li>
+      <li>Random silly awards + weekly Wrapped-style recap</li>
+      <li>All on-device, no backend — shipped fast</li>
+    </ul>
+    <div class="quote">Strategy: make kids <em>want</em> to open the app → guaranteed trial sessions → higher conversion for parents.</div>
+  </div>
+
+  <!-- SLIDE 8: Schools Database -->
+  <div class="slide" data-slide="7">
+    <span class="mono">Case Study 05</span>
     <h2>Schools<br><span class="accent">Database</span></h2>
     <div class="vs-container">
       <div class="vs-side old">
@@ -465,77 +548,78 @@
         <ul>
           <li>Every school in Australia</li>
           <li>Demographics attached</li>
-          <li>Filterable and actionable</li>
-          <li>One afternoon</li>
+          <li>Beautiful interactive dashboard</li>
+          <li>A couple of hours</li>
         </ul>
       </div>
     </div>
+    <p style="margin-top: 1.5rem; max-width: 650px;">Now using AI to trawl LinkedIn day-by-day to find the right contacts at each school.</p>
+    <div style="margin-top: 1rem;">
+      <a class="asset-link" href="https://halo-school-outreach.vercel.app" target="_blank">→ Schools Dashboard</a>
+    </div>
   </div>
 
-  <!-- SLIDE 8: The 10x Insight -->
-  <div class="slide" data-slide="7">
+  <!-- SLIDE 9: Reddit Scout -->
+  <div class="slide" data-slide="8">
+    <span class="mono">Case Study 06</span>
+    <h2>Reddit<br><span class="accent">Scout</span></h2>
+    <p style="max-width: 650px;">Automated market listening. AI monitors Reddit for relevant conversations, flags opportunities, and surfaces what people are actually saying about the problem space.</p>
+    <ul class="clean-list" style="max-width: 650px; margin-top: 1.2rem;">
+      <li>Runs automatically — finds conversations I should be in</li>
+      <li>Simple to set up, huge surface area for awareness</li>
+      <li>Real customer language → feeds back into copy and positioning</li>
+      <li>Early signal for product direction</li>
+    </ul>
+    <div class="quote">Not using it to its full potential yet — but even basic automated listening beats manually searching forums every day.</div>
+  </div>
+
+  <!-- SLIDE 10: The 10x Insight -->
+  <div class="slide" data-slide="9">
     <span class="mono">The Multiplier</span>
     <div class="big-number">10×</div>
     <h3 style="margin-top: 1rem;">One person operating at the level<br>of a ten-person team.</h3>
-    <p style="max-width: 650px; margin-top: 1rem;">Not by working harder. By removing the bottleneck entirely — you go from idea to execution without waiting for anyone.</p>
+    <p style="max-width: 650px; margin-top: 1rem;">Not by working harder. You're working smarter — things that take forever are now fast. <strong>Creating this entire slide deck took three voice messages.</strong></p>
   </div>
 
-  <!-- SLIDE 9: Communication Tax -->
-  <div class="slide" data-slide="8">
+  <!-- SLIDE 11: Communication Tax -->
+  <div class="slide" data-slide="10">
     <span class="mono">The Real Insight</span>
     <h2>The <span class="accent2">Communication Tax</span></h2>
-    <div class="stats-row" style="margin-bottom: 2rem;">
+    <div class="stats-row" style="margin-bottom: 1.5rem;">
       <div class="stat">
         <span class="stat-value big-number red" style="font-size: clamp(3rem, 7vw, 6rem);">30-40%</span>
         <span class="stat-label">Of team time spent on communication</span>
       </div>
     </div>
-    <p style="max-width: 700px;">In a traditional team, the leader often does <em>nothing but</em> communication and strategy. Meetings, briefings, alignment, feedback loops, misunderstandings, re-work.</p>
-    <div class="quote">With AI, two people don't operate like two 10-person teams with a communication problem.<br><br>They operate like <span class="accent">two elite movers</span> — no overhead, no lag, just execution.</div>
+    <p style="max-width: 700px;">In a traditional team, the leader often does <em>nothing but</em> communication and strategy. Customer problems go through 3 people to reach the founder. Then 3 people back down to fix it. Then someone handles the comms. Then it gets run by the founders again.</p>
+    <div class="quote">With AI, you see the customer problem, you solve it, you ship the fix, you write the post — all you. No overhead, no lag, no broken telephone.</div>
   </div>
 
-  <!-- SLIDE 10: What This Means For You -->
-  <div class="slide" data-slide="9">
-    <span class="mono">For Your Business</span>
-    <h2>What to look for<br><span class="accent">in your operation</span></h2>
-    <div class="card-grid">
-      <div class="card">
-        <span class="emoji">⏱️</span>
-        <h3>Time Sinks</h3>
-        <p>What eats hours but doesn't need human judgment? Reports, data entry, research, first drafts.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🔄</span>
-        <h3>Repetitive Work</h3>
-        <p>Anything done the same way every week is a candidate for AI acceleration.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🧠</span>
-        <h3>Expertise Gaps</h3>
-        <p>Need marketing but don't have a marketer? Need data analysis? AI fills the skill gaps.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🚀</span>
-        <h3>Speed Wins</h3>
-        <p>Where does being first matter? Competitive response, customer issues, market opportunities.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 11: The Punchline -->
-  <div class="slide" data-slide="10">
-    <span class="mono">The Bottom Line</span>
-    <h2>Save Mike and Gregor<br><span class="accent">3 hours a day.</span></h2>
-    <p style="max-width: 650px; font-size: 1.3rem; margin-top: 1rem;">If you can save each person on your team 1-3 hours a day — that's not just efficiency.</p>
-    <p style="max-width: 650px; font-size: 1.3rem; margin-top: 0.5rem;">That's freeing them up to do the <strong>epic shit</strong> that actually moves the business forward.</p>
-    <div class="quote" style="margin-top: 3rem;">You're not replacing people.<br>You're <span class="accent">building systems of efficiency</span> that give every person on your team superpowers.</div>
-  </div>
-
-  <!-- SLIDE 12: Closing -->
+  <!-- SLIDE 12: How to Start -->
   <div class="slide" data-slide="11">
+    <span class="mono">Implementation</span>
+    <h2>How to actually<br><span class="accent">start doing this</span></h2>
+    <ol class="step-list" style="max-width: 700px;">
+      <li><strong>Give one person a project that's too big for them.</strong> Full ownership, end-to-end. Something within their skillset but stretching beyond it. They'll <em>have</em> to figure out AI because it's not possible to do manually.</li>
+      <li><strong>Let them learn by doing.</strong> That person is going to learn more about AI workflows in one real project than a month of courses or demos.</li>
+      <li><strong>Start removing time sinks for everyone else.</strong> Who's getting hit with repetitive work? What eats hours but doesn't need human judgment? That person becomes the one who builds systems to free up the rest of the team.</li>
+      <li><strong>Think in terms of ownership.</strong> People need to think more like founders — own your work end-to-end, pull in resources when needed, don't over-rely on others. One person + AI targeting 300 new customers in a year? That's a project worth owning.</li>
+    </ol>
+  </div>
+
+  <!-- SLIDE 13: The Bottom Line -->
+  <div class="slide" data-slide="12">
+    <span class="mono">The Bottom Line</span>
+    <h2>10 people running at<br>the pace of <span class="accent">100.</span></h2>
+    <p style="max-width: 650px; font-size: 1.2rem; margin-top: 1rem;">You're not replacing people. You're giving every person on your team the output of ten. Remove the shit work. Free them up for the epic stuff that actually moves the business.</p>
+    <p style="max-width: 650px; font-size: 1.2rem; margin-top: 1rem;">That's the advantage right now. Teams that get this will move at a pace that their competitors can't comprehend. The window is open — but it won't stay open forever.</p>
+  </div>
+
+  <!-- SLIDE 14: Closing -->
+  <div class="slide" data-slide="13">
     <h1 style="font-size: clamp(2rem, 5vw, 4.5rem);">The window is open.<br><span class="accent">Move now.</span></h1>
     <p style="max-width: 600px; margin-top: 1.5rem; font-size: 1.2rem;">Enterprise will catch up. They always do. But right now, small operators who adopt AI aren't just keeping up — they're lapping the big guys.</p>
-    <p style="margin-top: 3rem; color: var(--dim); font-family: 'Space Mono', monospace; font-size: 0.9rem;">Amos Whitewolf — amos@halosafe.app</p>
+    <p style="margin-top: 2.5rem; color: var(--dim); font-family: 'Space Mono', monospace; font-size: 0.9rem;">Amos Whitewolf — amos@halosafe.app</p>
   </div>
 
 </div>
